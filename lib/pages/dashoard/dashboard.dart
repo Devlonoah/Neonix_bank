@@ -33,29 +33,30 @@ class DashBoardBody extends StatelessWidget {
             AddedCards(),
             addVerticalSpace(40),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('SEND MONEY', style: subHeaderTextStyle),
                 addVerticalSpace(20),
-                Container(
-                  height: 90.h,
-                  width: double.infinity,
-                  child: ListView.builder(
-                    itemCount: 3,
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemBuilder: (context, _) {
-                      return Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10.w),
-                        height: 90.h,
-                        width: 100.w,
-                        decoration: BoxDecoration(
-                          color: COLOR_SUN_AMBER,
-                          borderRadius: BorderRadius.circular(4.r),
-                        ),
-                      );
-                    },
-                  ),
+                Wrap(
+                  children: _listOfBeneficiary.map((e) {
+                    return Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(
+                          horizontal: 4.w, vertical: 2.0.h),
+                      height: 30.h,
+                      width: 70.w,
+                      padding: EdgeInsets.symmetric(horizontal: 7.w),
+                      decoration: BoxDecoration(
+                        color: COLOR_SUN_AMBER,
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                      child: Text(
+                        e,
+                        style: subHeaderTextStyle,
+                      ),
+                    );
+                  }).toList(),
                 )
               ],
             )
@@ -65,6 +66,14 @@ class DashBoardBody extends StatelessWidget {
     );
   }
 
+  final _listOfBeneficiary = [
+    'Marthy',
+    'John S',
+    'Ricky',
+    'Noah',
+    'Shelby',
+    'Thomas'
+  ];
   Column _quickAcces() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
@@ -101,7 +110,7 @@ class DashBoardBody extends StatelessWidget {
         addVerticalSpace(4.h),
         Container(
           color: COLOR_SUN_AMBER,
-          padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w),
+          padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 14.w),
           child: Text(
             '\$45,321.09',
             style: TextStyle(
@@ -117,6 +126,7 @@ class DashBoardBody extends StatelessWidget {
 
   AppBar _appBAr() {
     return AppBar(
+      elevation: 0.0,
       shadowColor: COLOR_SUN_AMBER,
       backgroundColor: Colors.white,
       leading: Padding(
@@ -184,7 +194,7 @@ class ReusableCreditCard extends StatelessWidget {
         Navigator.pushNamed(context, CardDetailsPage.id);
       },
       child: Container(
-        height: 100.h,
+        height: 110.h,
         width: 150.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.r),
@@ -215,7 +225,7 @@ class ReusableCreditCard extends StatelessWidget {
                 Spacer(),
                 Text('Bernarr Dominik',
                     style: labelTextStyle.copyWith(
-                        fontWeight: FontWeight.w900,
+                        fontWeight: FontWeight.w400,
                         color: isDark ? COLOR_WHITE : COLOR_DARK_BLUE))
               ],
             ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,7 +22,7 @@ class OnboardPageBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          addVerticalSpace(40.h),
+          addVerticalSpace(70.h),
           _logoCard(),
           addVerticalSpace(40.h),
           Text(
@@ -102,6 +103,46 @@ class Button extends StatelessWidget {
             fontSize: 15.sp,
             fontWeight: FontWeight.w900,
           ),
+        ));
+  }
+
+  contentBox() {
+    return Container(
+        height: 130.w,
+        width: 250.w,
+        decoration: BoxDecoration(
+            color: COLOR_SUN_AMBER, borderRadius: BorderRadius.circular(4)),
+        margin: EdgeInsets.only(
+          top: 30.r,
+        ),
+        padding: EdgeInsets.only(top: 30.r, left: 10.w, right: 10.w),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Title',
+              style: subHeaderTextStyle,
+            ),
+            addVerticalSpace(10),
+            Text(
+              'Here gose the description of the sdsdjhh\n'
+              'New Line',
+              style: labelTextStyle,
+            ),
+            Align(
+              child: FlatButton(onPressed: () {}, child: Text('Pop')),
+            )
+          ],
+        ));
+  }
+
+  _positionedWidget() {
+    return Positioned(
+        right: 360 / 3,
+        child: CircleAvatar(
+          radius: 25.r,
+          backgroundColor: COLOR_SUN_AMBER,
         ));
   }
 }

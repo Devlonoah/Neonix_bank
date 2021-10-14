@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: ScreenUtil.defaultSize,
+      designSize: Size(360, 690),
       builder: () => MaterialApp(
         title: 'Neonix',
         debugShowCheckedModeBanner: false,

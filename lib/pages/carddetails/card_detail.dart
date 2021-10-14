@@ -1,8 +1,9 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:home/pages/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:home/pages/constants.dart';
 
 class CardDetailsPage extends StatelessWidget {
   static String id = 'CardDetailsPage';
@@ -19,15 +20,16 @@ class CardDetailsPageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         shadowColor: COLOR_SUN_AMBER,
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+          icon: Icon(Icons.arrow_back_ios, size: 15.r, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           'CARD DETAILS',
-          style: TextStyle(color: Colors.black),
+          style: subHeaderTextStyle.copyWith(fontSize: 15.sp),
         ),
       ),
       body: Padding(
@@ -43,63 +45,76 @@ class CardDetailsPageBody extends StatelessWidget {
             Text('TRANSACTIONS', style: subHeaderTextStyle),
             addVerticalSpace(15),
             Expanded(
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: 15,
-                  shrinkWrap: true,
-                  itemBuilder: (context, _) {
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: 10.h),
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 65.w,
-                            width: 65.w,
-                            decoration: BoxDecoration(
-                                color: CupertinoColors.systemGrey5,
-                                borderRadius: BorderRadius.circular(20)),
-                          ),
-                          addHorizontalSpace(10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Netflix Refund',
-                                  style: subHeaderTextStyle.copyWith(
-                                      fontWeight: FontWeight.w600)),
-                              addVerticalSpace(5),
-                              Row(
-                                children: [
-                                  Text('\$134',
-                                      style: subHeaderTextStyle.copyWith(
-                                          fontWeight: FontWeight.w900)),
-                                  Icon(CupertinoIcons.arrow_down,
-                                      color: Colors.red, size: 20.r)
-                                ],
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                '12-Jun-2021',
-                                style: TextStyle(
-                                    fontSize: 12.sp, color: Colors.grey[700]),
-                              ),
-                              addVerticalSpace(5),
-                              Text(
-                                '10:00 AM',
-                                style: TextStyle(
-                                    fontSize: 12.sp, color: Colors.grey[700]),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    );
-                  }),
-            )
+              child: Scrollbar(
+                interactive: true,
+                isAlwaysShown: true,
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: _transactionsList.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, _) {
+                      var _transaction = _transactionsList[_];
+
+                      var _isDebit = _transaction.isDebit;
+                      return Container(
+                        margin: EdgeInsets.symmetric(vertical: 10.h),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 65.w,
+                              width: 65.w,
+                              decoration: BoxDecoration(
+                                  color: CupertinoColors.systemGrey5,
+                                  borderRadius: BorderRadius.circular(20)),
+                            ),
+                            addHorizontalSpace(10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(_transaction.title,
+                                    style: subHeaderTextStyle.copyWith(
+                                        fontWeight: FontWeight.w600)),
+                                addVerticalSpace(5),
+                                Row(
+                                  children: [
+                                    Text('\$${_transaction.amount}',
+                                        style: subHeaderTextStyle.copyWith(
+                                            fontWeight: FontWeight.w900)),
+                                    Icon(
+                                        _isDebit!
+                                            ? Icons.arrow_downward
+                                            : Icons.arrow_upward,
+                                        color: _isDebit
+                                            ? Colors.red
+                                            : Colors.green,
+                                        size: 20.r)
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Spacer(),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  '12-Jun-2021',
+                                  style: TextStyle(
+                                      fontSize: 12.sp, color: Colors.grey[700]),
+                                ),
+                                addVerticalSpace(5),
+                                Text(
+                                  '10:00 AM',
+                                  style: TextStyle(
+                                      fontSize: 12.sp, color: Colors.grey[700]),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      );
+                    }),
+              ),
+            ),
           ],
         ),
       ),
@@ -120,7 +135,8 @@ class DotIndicator extends StatelessWidget {
       decorator: DotsDecorator(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
           activeColor: COLOR_DARK_BLUE,
-          activeSize: Size(17.w, 10.h),
+          activeSize: Size(17.w, 8.h),
+          size: Size(10.w, 5.h),
           activeShape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.r))),
     );
@@ -196,3 +212,44 @@ class CreditCardDetail extends StatelessWidget {
     );
   }
 }
+
+class Transaction {
+  final String logoUrl;
+  final String title;
+  final double amount;
+  final String fullDate;
+  final String timeOfTransaction;
+
+  final bool? isDebit;
+  Transaction({
+    required this.logoUrl,
+    required this.title,
+    required this.amount,
+    required this.fullDate,
+    required this.timeOfTransaction,
+    this.isDebit = false,
+  });
+}
+
+final _transactionsList = [
+  Transaction(
+      logoUrl: 'assets/logo/netflix.png',
+      title: 'Netflix refund',
+      amount: 134,
+      fullDate: '12-Jun-2021',
+      timeOfTransaction: '10:00 AM',
+      isDebit: false),
+  Transaction(
+      logoUrl: 'assets/logo/apple.png',
+      title: 'Apple Store',
+      amount: 1109.12,
+      fullDate: '12-Jun-2021',
+      timeOfTransaction: '06:00 AM',
+      isDebit: true),
+  Transaction(
+      logoUrl: 'assets/logo/amazon.png',
+      title: 'Amazon charge',
+      amount: 23.09,
+      fullDate: '12-Jun-2021',
+      timeOfTransaction: '12:00 PM'),
+];
