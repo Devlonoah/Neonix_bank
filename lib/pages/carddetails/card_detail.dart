@@ -65,7 +65,10 @@ class CardDetailsPageBody extends StatelessWidget {
                               width: 65.w,
                               decoration: BoxDecoration(
                                   color: CupertinoColors.systemGrey5,
-                                  borderRadius: BorderRadius.circular(20)),
+                                  borderRadius: BorderRadius.circular(20),
+                                  image: DecorationImage(
+                                      image: AssetImage(_transaction.logoUrl),
+                                      fit: BoxFit.scaleDown)),
                             ),
                             addHorizontalSpace(10),
                             Column(
@@ -233,21 +236,21 @@ class Transaction {
 
 final _transactionsList = [
   Transaction(
-      logoUrl: 'assets/logo/netflix.png',
+      logoUrl: 'assets/netflix.png',
       title: 'Netflix refund',
       amount: 134,
       fullDate: '12-Jun-2021',
       timeOfTransaction: '10:00 AM',
       isDebit: false),
   Transaction(
-      logoUrl: 'assets/logo/apple.png',
+      logoUrl: 'assets/apple.png',
       title: 'Apple Store',
       amount: 1109.12,
       fullDate: '12-Jun-2021',
       timeOfTransaction: '06:00 AM',
       isDebit: true),
   Transaction(
-      logoUrl: 'assets/logo/amazon.png',
+      logoUrl: 'assets/amazon.png',
       title: 'Amazon charge',
       amount: 23.09,
       fullDate: '12-Jun-2021',
