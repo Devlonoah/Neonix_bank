@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:home/pages/carddetails/card_detail.dart';
-import 'package:home/pages/dashoard/dashboard.dart';
-import 'package:home/pages/onboard/onboard.dart';
+import 'pages/carddetails/card_detail.dart';
+import 'pages/dashoard/dashboard.dart';
+import 'pages/onboard/onboard.dart';
 
 void main() {
   runApp(MyApp());

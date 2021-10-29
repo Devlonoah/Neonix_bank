@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:home/pages/carddetails/card_detail.dart';
+import '../carddetails/card_detail.dart';
 
-import 'package:home/pages/constants.dart';
+import '../constants.dart';
 
 class DashBoard extends StatelessWidget {
   static String id = 'DashBoard';
